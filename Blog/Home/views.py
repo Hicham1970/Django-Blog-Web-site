@@ -10,13 +10,17 @@ def home(request):
     # Assuming you have a boolean field 'main_post' in your Blog model
     main_post = Blog.objects.filter(main_post=True).order_by(
         '-id')[:1]  # Fetch the main post
-    recent = Blog.objects.filter(section='Recent')[0:5]  # Fetch 5 recent posts
+    recent = Blog.objects.filter(section='Recent').order_by(
+        '-id')[0:5]  # Fetch 5 recent posts
+    popular = Blog.objects.filter(section='Popular').order_by(
+        '-id')[0:5]  # Fetch 5 popular posts
     category = Category.objects.all()  # Fetch all categories
     context = {
         'post': post,
         'main_post': main_post,
         'recent': recent,
-        'cat': category,  # Renamed to 'cat' to match the template
+        'popular': popular,
+        'category': category,
     }
 
     return render(request, 'index.html', context)
