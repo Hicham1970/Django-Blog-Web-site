@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Home',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +115,9 @@ STATICFILES_DIRS = [
 # media files settings uploaded by users like images
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR
+
+# CKEditor settings
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 
 # Default primary key field type

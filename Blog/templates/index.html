@@ -303,127 +303,32 @@
 
 				<div class="padding-30 rounded bordered">
 					<div class="row gy-5">
+						{% for post in trending %}
 						<div class="col-sm-6">
-							<!-- post large -->
+							<!-- post -->
 							<div class="post">
 								<div class="thumb rounded">
-									<a href="#" class="category-badge position-absolute">Culture</a>
+									<a href="{% url 'category' post.category.slug %}"
+										class="category-badge position-absolute">{{post.category.name}}</a>
 									<span class="post-format">
 										<i class="icon-picture"></i>
 									</span>
-									<a href="#">
+									<a href="{% url 'blog_details' post.blog_slug %}">
 										<div class="inner">
-											<img src="{% static 'images/posts/trending-lg-1.jpg' %}" alt="post-title" />
+											<img src="{{post.image.url}}" alt="{{post.title}}" />
 										</div>
 									</a>
 								</div>
 								<ul class="meta list-inline mt-4 mb-0">
-									<li class="list-inline-item"><a href="#"><img
-												src="{% static 'images/other/author-sm.png' %}" class="author"
-												alt="author" />Katen Doe</a></li>
-									<li class="list-inline-item">29 March 2021</li>
+									<li class="list-inline-item"><a href="#">{{ post.author}} </a></li>
+									<li class="list-inline-item">{{post.created_at|date:"d M Y"}}</li>
 								</ul>
-								<h5 class="post-title mb-3 mt-3"><a href="#">Facts About Business That
-										Will Help You Success</a></h5>
-								<p class="excerpt mb-0">A wonderful serenity has taken possession of my entire soul,
-									like these sweet mornings of spring which I enjoy</p>
-							</div>
-							<!-- post -->
-							<div class="post post-list-sm square before-seperator">
-								<div class="thumb rounded">
-									<a href="#">
-										<div class="inner">
-											<img src="{% static 'images/posts/trending-sm-1.jpg' %}" alt="post-title" />
-										</div>
-									</a>
-								</div>
-								<div class="details clearfix">
-									<h6 class="post-title my-0"><a href="#">3 Easy Ways To Make Your
-											iPhone Faster</a></h6>
-									<ul class="meta list-inline mt-1 mb-0">
-										<li class="list-inline-item">29 March 2021</li>
-									</ul>
-								</div>
-							</div>
-							<!-- post -->
-							<div class="post post-list-sm square before-seperator">
-								<div class="thumb rounded">
-									<a href="#">
-										<div class="inner">
-											<img src="{% static 'images/posts/trending-sm-2.jpg' %}" alt="post-title" />
-										</div>
-									</a>
-								</div>
-								<div class="details clearfix">
-									<h6 class="post-title my-0"><a href="blog_details.html">An Incredibly Easy Method
-											That Works For All</a></h6>
-									<ul class="meta list-inline mt-1 mb-0">
-										<li class="list-inline-item">29 March 2021</li>
-									</ul>
-								</div>
+								<h5 class="post-title mb-3 mt-3"><a
+										href="{% url 'blog_details' post.blog_slug %}">{{post.title}}</a></h5>
+								<p class="excerpt mb-0">{{post.content|safe | truncatechars:100}}</p>
 							</div>
 						</div>
-						<div class="col-sm-6">
-							<!-- post large -->
-							<div class="post">
-								<div class="thumb rounded">
-									<a href="#" class="category-badge position-absolute">Inspiration</a>
-									<span class="post-format">
-										<i class="icon-earphones"></i>
-									</span>
-									<a href="#">
-										<div class="inner">
-											<img src="{% static 'images/posts/trending-lg-2.jpg' %}" alt="post-title" />
-										</div>
-									</a>
-								</div>
-								<ul class="meta list-inline mt-4 mb-0">
-									<li class="list-inline-item"><a href="#"><img
-												src="{% static 'images/other/author-sm.png' %}" class="author"
-												alt="author" />Katen Doe</a></li>
-									<li class="list-inline-item">29 March 2021</li>
-								</ul>
-								<h5 class="post-title mb-3 mt-3"><a href="#">5 Easy Ways You Can Turn
-										Future Into Success</a></h5>
-								<p class="excerpt mb-0">A wonderful serenity has taken possession of my entire soul,
-									like these sweet mornings of spring which I enjoy</p>
-							</div>
-							<!-- post -->
-							<div class="post post-list-sm square before-seperator">
-								<div class="thumb rounded">
-									<a href="#">
-										<div class="inner">
-											<img src="{% static 'images/posts/trending-sm-3.jpg' %}" alt="post-title" />
-										</div>
-									</a>
-								</div>
-								<div class="details clearfix">
-									<h6 class="post-title my-0"><a href="#">Here Are 8 Ways To Success
-											Faster</a></h6>
-									<ul class="meta list-inline mt-1 mb-0">
-										<li class="list-inline-item">29 March 2021</li>
-									</ul>
-								</div>
-							</div>
-							<!-- post -->
-							<div class="post post-list-sm square before-seperator">
-								<div class="thumb rounded">
-									<a href="#">
-										<div class="inner">
-											<img src="{% static 'images/posts/trending-sm-4.jpg' %}" alt="post-title" />
-										</div>
-									</a>
-								</div>
-								<div class="details clearfix">
-									<h6 class="post-title my-0"><a href="blog_details.html">Master The Art Of Nature
-											With
-											These 7 Tips</a></h6>
-									<ul class="meta list-inline mt-1 mb-0">
-										<li class="list-inline-item">29 March 2021</li>
-									</ul>
-								</div>
-							</div>
-						</div>
+						{% endfor %}
 					</div>
 				</div>
 
@@ -443,62 +348,28 @@
 
 				<div class="row post-carousel-twoCol post-carousel">
 					<!-- post -->
+					{% for post in inspiration %}
 					<div class="post post-over-content col-md-6">
 						<div class="details clearfix">
-							<a href="#" class="category-badge">Inspiration</a>
-							<h4 class="post-title"><a href="#">Want To Have A More Appealing Tattoo?</a>
+							<a href="{% url 'category' post.category.slug %}"
+								class="category-badge">{{post.category}}</a>
+							<h4 class="post-title"><a href="{% url 'blog_details' post.blog_slug %}">{{post.title}}</a>
 							</h4>
 							<ul class="meta list-inline mb-0">
-								<li class="list-inline-item"><a href="#">Katen Doe</a></li>
-								<li class="list-inline-item">29 March 2021</li>
+								<li class="list-inline-item"><a href="#">{{post.author}}</a></li>
+								<li class="list-inline-item">{{post.created_at|date:"d M Y"}}</li>
 							</ul>
 						</div>
-						<a href="blog_details.html">
+						<a href="{% url 'blog_details' post.blog_slug %}">
 							<div class="thumb rounded">
 								<div class="inner">
-									<img src="{% static 'images/posts/inspiration-1.jpg' %}" alt="thumb" />
+									<img src="{{post.image.url}}" alt="{{post.author}}" />
 								</div>
 							</div>
 						</a>
 					</div>
-					<!-- post -->
-					<div class="post post-over-content col-md-6">
-						<div class="details clearfix">
-							<a href="#" class="category-badge">Inspiration</a>
-							<h4 class="post-title"><a href="#">Feel Like A Pro With The Help Of These 7
-									Tips</a></h4>
-							<ul class="meta list-inline mb-0">
-								<li class="list-inline-item"><a href="#">Katen Doe</a></li>
-								<li class="list-inline-item">29 March 2021</li>
-							</ul>
-						</div>
-						<a href="blog_details.html">
-							<div class="thumb rounded">
-								<div class="inner">
-									<img src="{% static 'images/posts/inspiration-2.jpg' %}" alt="thumb" />
-								</div>
-							</div>
-						</a>
-					</div>
-					<!-- post -->
-					<div class="post post-over-content col-md-6">
-						<div class="details clearfix">
-							<a href="#" class="category-badge">Inspiration</a>
-							<h4 class="post-title"><a href="#">Your Light Is About To Stop Being
-									Relevant</a></h4>
-							<ul class="meta list-inline mb-0">
-								<li class="list-inline-item"><a href="#">Katen Doe</a></li>
-								<li class="list-inline-item">29 March 2021</li>
-							</ul>
-						</div>
-						<a href="blog_details.html">
-							<div class="thumb rounded">
-								<div class="inner">
-									<img src="{% static 'images/posts/inspiration-3.jpg' %}" alt="thumb" />
-								</div>
-							</div>
-						</a>
-					</div>
+					{% endfor %}
+
 				</div>
 
 				<div class="spacer" data-height="50"></div>

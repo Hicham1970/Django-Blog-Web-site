@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
@@ -35,7 +36,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=200, verbose_name="Titre")
     image = models.ImageField(
         upload_to='images/', null=True, blank=True, verbose_name="Image")
-    content = models.TextField(verbose_name="Contenu")
+    content = RichTextField()
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="blog_posts", verbose_name="Auteur")
     created_at = models.DateTimeField(
@@ -59,3 +60,26 @@ class Blog(models.Model):
 
     def __str__(self):
         return f"{self.title} - ({self.category})"
+
+
+class Comment(models.Model):
+    id = models.AutoField(primary_key=True)
+    post = models.ForeignKey(
+        Blog, on_delete=models.CASCADE, related_name="comments", verbose_name="Post")
+    name = models.CharField(max_length=100, verbose_name="Nom")
+    email = models.EmailField(verbose_name="Email")
+    website = models.URLField(blank=True, null=True, verbose_name="Site Web")
+    comment_text = models.TextField(verbose_name="Commentaire")
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name="Date de création")
+    parent = models.ForeignKey('self', on_delete=models.CASCADE,
+                               null=True, blank=True, related_name='replies', verbose_name="Parent")
+
+    class Meta:
+        ordering = ['created_at']
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"Comment by {self.name} on {self.post.title}"

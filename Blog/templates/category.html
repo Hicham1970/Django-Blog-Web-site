@@ -132,8 +132,8 @@
 												alt="author" />{{ post.author.first_name }}</a></li>
 									<li class="list-inline-item">{{ post.created_at|date:"d M Y" }}</li>
 								</ul>
-								<h5 class="post-title mb-3 mt-3"><a href="{% url 'blog_details' post.blog_slug %}">{{
-										post.title }}</a></h5>
+								<h5 class="post-title mb-3 mt-3"><a
+										href="{% url 'blog_details' post.blog_slug %}">{{post.title}}</a></h5>
 								<p class="excerpt mb-0">{{ post.content|safe|truncatewords:20 }}</p>
 							</div>
 							<div class="post-bottom clearfix d-flex align-items-center">
