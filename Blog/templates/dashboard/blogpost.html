@@ -1,0 +1,76 @@
+{% extends 'dashboard/dash_base.html' %}
+{% load static %}
+{% block title %}Blogposts{% endblock %}
+{% block body %}
+
+
+<!-- /.container-fluid -->
+<div class="container mt-5">
+    <h2 class="mb-4"> Blog posts </h2>
+    <div class="card mb-3" style="max-width: 100%;">
+        <div class="row no-gutters">
+            <div class="col-md-2">
+                <img src="/mnt/data/Screenshot (52).png" class="card-img" alt="Blog Image">
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h5 class="card-title">Modern Portfolio Website Design | HTML, CSS & JavaScript Complete Guide</h5>
+                    <h2 class="card-text"><small class="text-muted">Blog</small></h2>
+                    <p class="card-text"><small class="text-muted">Published: 2 Aug</small></p>
+                    <p class="card-text"><small class="text-muted">Author: Samir rain</small></p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            <i class="fas fa-eye"></i> 0 views | 0 comments | 36 likes
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2021</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock body %}
