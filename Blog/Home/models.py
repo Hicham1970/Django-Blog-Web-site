@@ -53,6 +53,9 @@ class Blog(models.Model):
         max_length=100, choices=SECTION, default='Recent', verbose_name="Section")
     main_post = models.BooleanField(
         default=False, verbose_name="Post Principal")
+    # for post views:
+    views = models.PositiveIntegerField(default=0, verbose_name="Vues")
+    
 
     class Meta:
         # Ordonne les posts du plus récent au plus ancien
