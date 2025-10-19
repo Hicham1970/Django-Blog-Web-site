@@ -12,7 +12,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Blog.settings')
 # Import Django and setup
 import django
 from django.conf import settings
-from django.core.wsgi import get_wsgi_application
 
 # Configure Django settings for production
 if not settings.configured:
@@ -73,13 +72,10 @@ if not settings.configured:
 
 django.setup()
 
-# Get the WSGI application
-application = get_wsgi_application()
-
 # Vercel expects a function called 'handler'
 def handler(event, context):
     """
-    Handler for Vercel serverless functions using Django's built-in WSGI handler
+    Vercel serverless handler for Django
     """
     try:
         from django.core.handlers.wsgi import WSGIHandler
@@ -87,10 +83,7 @@ def handler(event, context):
         import json
         import base64
 
-        # Debug: Print event structure
-        print("Event received:", json.dumps(event, indent=2))
-
-        # Create a WSGI environ from the Vercel event
+        # Create WSGI environ from Vercel event
         environ = {
             'REQUEST_METHOD': event.get('method', 'GET'),
             'SCRIPT_NAME': '',
@@ -131,55 +124,47 @@ def handler(event, context):
 
         # Response collector
         status = []
-        headers = []
-        body_parts = []
+        response_headers = []
 
-        def start_response(status_line, response_headers, exc_info=None):
+        def start_response(status_line, headers_list, exc_info=None):
             status.append(status_line)
-            headers.extend(response_headers)
+            response_headers.extend(headers_list)
 
-        # Use Django's WSGIHandler directly
-        django_handler = WSGIHandler()
-        app_response = django_handler(environ, start_response)
+        # Create WSGI handler and process request
+        wsgi_handler = WSGIHandler()
+        response_iter = wsgi_handler(environ, start_response)
 
-        # Collect the response body
-        for data in app_response:
-            if isinstance(data, str):
-                body_parts.append(data.encode('utf-8'))
-            else:
-                body_parts.append(data)
-
-        response_body = b''.join(body_parts)
-
-        # Determine if response is binary or text
-        content_type = ''
-        for header_name, header_value in headers:
-            if header_name.lower() == 'content-type':
-                content_type = header_value.lower()
-                break
+        # Collect response body
+        response_body = b''.join(response_iter)
 
         # Prepare response
         response = {
             'statusCode': int(status[0].split()[0]) if status else 200,
-            'headers': dict(headers),
+            'headers': dict(response_headers),
         }
 
+        # Determine content type for encoding
+        content_type = ''
+        for header_name, header_value in response_headers:
+            if header_name.lower() == 'content-type':
+                content_type = header_value.lower()
+                break
+
         # Handle binary vs text response
-        if 'image' in content_type or 'application' in content_type or 'font' in content_type:
+        if any(ct in content_type for ct in ['image', 'application', 'font', 'audio', 'video']):
             response['body'] = base64.b64encode(response_body).decode('utf-8')
             response['isBase64Encoded'] = True
         else:
-            response['body'] = response_body.decode('utf-8', errors='ignore')
+            response['body'] = response_body.decode('utf-8', errors='replace')
 
-        print("Response:", response['statusCode'])
         return response
 
     except Exception as e:
-        print("Error in handler:", str(e))
+        print(f"Handler error: {e}")
         import traceback
         traceback.print_exc()
         return {
             'statusCode': 500,
             'headers': {'Content-Type': 'application/json'},
-            'body': json.dumps({'error': str(e)})
+            'body': json.dumps({'error': str(e), 'type': 'handler_error'})
         }
