@@ -81,52 +81,103 @@ def handler(event, context):
     """
     Handler for Vercel serverless functions
     """
-    from django.core.handlers.wsgi import WSGIHandler
-    from io import BytesIO
-    import json
+    try:
+        from io import BytesIO
+        import json
 
-    # Create a WSGI environ from the Vercel event
-    environ = {
-        'REQUEST_METHOD': event.get('method', 'GET'),
-        'SCRIPT_NAME': '',
-        'PATH_INFO': event.get('path', '/'),
-        'QUERY_STRING': event.get('query', {}).get('string', ''),
-        'CONTENT_TYPE': event.get('headers', {}).get('content-type', ''),
-        'CONTENT_LENGTH': str(len(event.get('body', ''))),
-        'SERVER_NAME': 'vercel',
-        'SERVER_PORT': '443',
-        'wsgi.version': (1, 0),
-        'wsgi.url_scheme': 'https',
-        'wsgi.input': BytesIO(event.get('body', '').encode('utf-8')),
-        'wsgi.errors': BytesIO(),
-        'wsgi.multithread': False,
-        'wsgi.multiprocess': False,
-        'wsgi.run_once': False,
-    }
+        # Debug: Print event structure
+        print("Event received:", json.dumps(event, indent=2))
 
-    # Add headers to environ
-    for header, value in event.get('headers', {}).items():
-        environ[f'HTTP_{header.upper().replace("-", "_")}'] = value
+        # Create a WSGI environ from the Vercel event
+        environ = {
+            'REQUEST_METHOD': event.get('method', 'GET'),
+            'SCRIPT_NAME': '',
+            'PATH_INFO': event.get('path', '/'),
+            'QUERY_STRING': '',
+            'CONTENT_TYPE': event.get('headers', {}).get('content-type', ''),
+            'CONTENT_LENGTH': '0',
+            'SERVER_NAME': 'vercel',
+            'SERVER_PORT': '443',
+            'wsgi.version': (1, 0),
+            'wsgi.url_scheme': 'https',
+            'wsgi.input': BytesIO(),
+            'wsgi.errors': BytesIO(),
+            'wsgi.multithread': False,
+            'wsgi.multiprocess': False,
+            'wsgi.run_once': False,
+        }
 
-    # Response collector
-    status = []
-    headers = []
-    body = []
+        # Handle query parameters
+        query_params = event.get('query', {})
+        if query_params:
+            query_string = '&'.join([f"{k}={v}" for k, v in query_params.items()])
+            environ['QUERY_STRING'] = query_string
 
-    def start_response(status_line, response_headers, exc_info=None):
-        status.append(status_line)
-        headers.extend(response_headers)
+        # Handle request body
+        body = event.get('body', '')
+        if body:
+            if event.get('isBase64Encoded', False):
+                import base64
+                body = base64.b64decode(body).decode('utf-8')
+            environ['wsgi.input'] = BytesIO(body.encode('utf-8'))
+            environ['CONTENT_LENGTH'] = str(len(body))
 
-    # Call the WSGI application
-    app_response = application(environ, start_response)
+        # Add headers to environ
+        headers = event.get('headers', {})
+        for header, value in headers.items():
+            key = f'HTTP_{header.upper().replace("-", "_")}'
+            environ[key] = value
 
-    # Collect the response body
-    for data in app_response:
-        body.append(data)
+        # Response collector
+        status = []
+        headers = []
+        body_parts = []
 
-    # Return Vercel-compatible response
-    return {
-        'statusCode': int(status[0].split()[0]),
-        'headers': dict(headers),
-        'body': b''.join(body).decode('utf-8', errors='ignore')
-    }
+        def start_response(status_line, response_headers, exc_info=None):
+            status.append(status_line)
+            headers.extend(response_headers)
+
+        # Call the WSGI application
+        app_response = application(environ, start_response)
+
+        # Collect the response body
+        for data in app_response:
+            if isinstance(data, str):
+                body_parts.append(data.encode('utf-8'))
+            else:
+                body_parts.append(data)
+
+        response_body = b''.join(body_parts)
+
+        # Determine if response is binary or text
+        content_type = ''
+        for header_name, header_value in headers:
+            if header_name.lower() == 'content-type':
+                content_type = header_value.lower()
+                break
+
+        # Prepare response
+        response = {
+            'statusCode': int(status[0].split()[0]) if status else 200,
+            'headers': dict(headers),
+        }
+
+        # Handle binary vs text response
+        if 'image' in content_type or 'application' in content_type:
+            response['body'] = base64.b64encode(response_body).decode('utf-8')
+            response['isBase64Encoded'] = True
+        else:
+            response['body'] = response_body.decode('utf-8', errors='ignore')
+
+        print("Response:", response['statusCode'])
+        return response
+
+    except Exception as e:
+        print("Error in handler:", str(e))
+        import traceback
+        traceback.print_exc()
+        return {
+            'statusCode': 500,
+            'headers': {'Content-Type': 'application/json'},
+            'body': json.dumps({'error': str(e)})
+        }
