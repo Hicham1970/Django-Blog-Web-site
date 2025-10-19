@@ -7,7 +7,7 @@ This project is a blog application built using Django. It features user authenti
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/Nawaj2417/Blog_project.git
+    git clone https://github.com/Hicham1970/Django-Blog-Web-site.git
     ```
 
 2. Navigate to the project directory:
