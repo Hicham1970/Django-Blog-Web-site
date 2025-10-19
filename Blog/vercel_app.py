@@ -14,6 +14,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Blog.settings')
 django.setup()
 
 # Vercel expects a function called 'handler'
+
+
 def handler(event, context):
     """
     Vercel serverless handler for Django using standard WSGI
@@ -50,7 +52,8 @@ def handler(event, context):
         # Handle query parameters
         query_params = event.get('query', {})
         if query_params:
-            query_string = '&'.join([f"{k}={v}" for k, v in query_params.items()])
+            query_string = '&'.join(
+                [f"{k}={v}" for k, v in query_params.items()])
             environ['QUERY_STRING'] = query_string
 
         # Handle request body
@@ -112,3 +115,7 @@ def handler(event, context):
             'headers': {'Content-Type': 'application/json'},
             'body': json.dumps({'error': str(e), 'type': 'handler_error'})
         }
+
+
+application = get_wsgi_application()
+app = application
