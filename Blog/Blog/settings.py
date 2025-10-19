@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=b34wmsqu*dk%7b1*zpb&e9p&8#z!e$l=gkfmndbv=&4*&=1!w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -112,6 +112,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+# Static root for collectstatic
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # media files settings uploaded by users like images
 MEDIA_URL = '/media/'
