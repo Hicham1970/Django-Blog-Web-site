@@ -5,32 +5,29 @@
 
 
 <div class="container mt-5">
-    <h2 class="mb-4"> commnets </h2>
+    <h2 class="mb-4"> Commnets </h2>
+    {% for comment in all_comments %}
 
     <div class="card mb-3">
         <div class="card-header">
-            <strong>Shona67</strong> commented on <em>"Converting plastic waste to fuel"</em>
-            <span class="float-right">30 Oct 2023</span>
+            <strong>{{comment.name}}</strong> commented on: <strong>{{comment.post}}</strong>
+            <span class="float-right">{{comment.created_at|date:"d M Y"}}</span>
         </div>
         <div class="card-body">
-            <p>sd</p>
+            <p>{{comment.comment_text}}</p>
         </div>
+        {% if not comment.approved %}
         <div class="card-footer text-muted">
             Awaiting moderation
         </div>
+        {% endif %}
     </div>
-    <div class="card mb-3">
-        <div class="card-header">
-            <strong>Shona67</strong> commented on <em>"Converting plastic waste to fuel"</em>
-            <span class="float-right">22 Sept 2023</span>
-        </div>
-        <div class="card-body">
-            <p>df</p>
-        </div>
-        <div class="card-footer text-muted">
-            Awaiting moderation
-        </div>
-    </div>
+    {% endfor %}
+</div>
+
+
+
+
 </div>
 
 
