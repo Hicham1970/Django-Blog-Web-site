@@ -79,11 +79,13 @@ application = get_wsgi_application()
 # Vercel expects a function called 'handler'
 def handler(event, context):
     """
-    Handler for Vercel serverless functions
+    Handler for Vercel serverless functions using Django's built-in WSGI handler
     """
     try:
+        from django.core.handlers.wsgi import WSGIHandler
         from io import BytesIO
         import json
+        import base64
 
         # Debug: Print event structure
         print("Event received:", json.dumps(event, indent=2))
@@ -117,7 +119,6 @@ def handler(event, context):
         body = event.get('body', '')
         if body:
             if event.get('isBase64Encoded', False):
-                import base64
                 body = base64.b64decode(body).decode('utf-8')
             environ['wsgi.input'] = BytesIO(body.encode('utf-8'))
             environ['CONTENT_LENGTH'] = str(len(body))
@@ -137,8 +138,9 @@ def handler(event, context):
             status.append(status_line)
             headers.extend(response_headers)
 
-        # Call the WSGI application
-        app_response = application(environ, start_response)
+        # Use Django's WSGIHandler directly
+        django_handler = WSGIHandler()
+        app_response = django_handler(environ, start_response)
 
         # Collect the response body
         for data in app_response:
@@ -163,7 +165,7 @@ def handler(event, context):
         }
 
         # Handle binary vs text response
-        if 'image' in content_type or 'application' in content_type:
+        if 'image' in content_type or 'application' in content_type or 'font' in content_type:
             response['body'] = base64.b64encode(response_body).decode('utf-8')
             response['isBase64Encoded'] = True
         else:
