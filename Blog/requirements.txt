@@ -1,10 +1,12 @@
 asgiref==3.10.0
-Django==5.2.7
+Django==4.2.25
 django-autoslug==1.9.9
 django-chartjs==2.3.0
-django-ckeditor==6.7.3
-django-js-asset==3.1.2
+django-ckeditor==6.5.1
+django-filter==23.3
+
+
 django-utils==0.0.2
 pillow==11.3.0
-sqlparse==0.5.3
-tzdata==2025.2
+sqlparse==0.4.4
+tzdata==2022.5
