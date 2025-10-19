@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from Home.models import *
 from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
 
+@login_required
 
 def dashboard(request):
     
@@ -23,6 +24,7 @@ def dashboard(request):
     return render(request, 'dashboard/dash.html', context )
 
 
+@login_required
 
 def blogpost(request):
     post = Blog.objects.order_by('-id') # Récupère les posts les plus récents en premier
@@ -33,6 +35,7 @@ def blogpost(request):
     return render(request, 'dashboard/blogpost.html', context )
 
 
+@login_required
 def comments(request):
     all_comments= Comment.objects.select_related('post').order_by('created_at') # Récupère les comments les plus récents en premier
     context = {
@@ -44,6 +47,8 @@ def comments(request):
 def charts(request):
     return render(request, 'dashboard/charts.html' )
 
+
+@login_required
 
 def pages(request):
     
