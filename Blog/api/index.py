@@ -77,6 +77,56 @@ django.setup()
 application = get_wsgi_application()
 
 # Vercel expects a function called 'handler'
-def handler(request, response):
-    # Handle the request using Django's WSGI application
-    return application(request.environ, response.start_response)
+def handler(event, context):
+    """
+    Handler for Vercel serverless functions
+    """
+    from django.core.handlers.wsgi import WSGIHandler
+    from io import BytesIO
+    import json
+
+    # Create a WSGI environ from the Vercel event
+    environ = {
+        'REQUEST_METHOD': event.get('method', 'GET'),
+        'SCRIPT_NAME': '',
+        'PATH_INFO': event.get('path', '/'),
+        'QUERY_STRING': event.get('query', {}).get('string', ''),
+        'CONTENT_TYPE': event.get('headers', {}).get('content-type', ''),
+        'CONTENT_LENGTH': str(len(event.get('body', ''))),
+        'SERVER_NAME': 'vercel',
+        'SERVER_PORT': '443',
+        'wsgi.version': (1, 0),
+        'wsgi.url_scheme': 'https',
+        'wsgi.input': BytesIO(event.get('body', '').encode('utf-8')),
+        'wsgi.errors': BytesIO(),
+        'wsgi.multithread': False,
+        'wsgi.multiprocess': False,
+        'wsgi.run_once': False,
+    }
+
+    # Add headers to environ
+    for header, value in event.get('headers', {}).items():
+        environ[f'HTTP_{header.upper().replace("-", "_")}'] = value
+
+    # Response collector
+    status = []
+    headers = []
+    body = []
+
+    def start_response(status_line, response_headers, exc_info=None):
+        status.append(status_line)
+        headers.extend(response_headers)
+
+    # Call the WSGI application
+    app_response = application(environ, start_response)
+
+    # Collect the response body
+    for data in app_response:
+        body.append(data)
+
+    # Return Vercel-compatible response
+    return {
+        'statusCode': int(status[0].split()[0]),
+        'headers': dict(headers),
+        'body': b''.join(body).decode('utf-8', errors='ignore')
+    }
