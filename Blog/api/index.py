@@ -13,6 +13,13 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Blog.settings')
 import django
 django.setup()
 
+# Run collectstatic on first import
+from django.core.management import execute_from_command_line
+try:
+    execute_from_command_line(['manage.py', 'collectstatic', '--noinput'])
+except:
+    pass  # Ignore if already collected
+
 # Import the WSGI application
 from Blog.wsgi import application
 
