@@ -118,4 +118,3 @@ def handler(event, context):
 
 
 application = get_wsgi_application()
-app = application

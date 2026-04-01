@@ -1,18 +1,22 @@
 {
-    "version": 2,
-    "functions": {
-        "vercel_app.py": {
-            "runtime": "python3.9"
-        }
+  "version": 2,
+  "functions": {
+    "vercel_app.py": {
+      "runtime": "vercel-python@0.6.1"
+    }
+  },
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     },
-    "routes": [
-        {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/vercel_app.py"
-        }
-    ]
+    {
+      "src": "/media/(.*)",
+      "dest": "/media/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/vercel_app.py"
+    }
+  ]
 }

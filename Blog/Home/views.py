@@ -93,4 +93,17 @@ def add_comment(request, slug):
 
 
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('InputName', '')
+        email = request.POST.get('InputEmail', '')
+        subject = request.POST.get('InputSubject', '')
+        message = request.POST.get('InputMessage', '')
+        
+        # Here you can add email sending, DB save, etc.
+        # For now, print to console
+        print(f"Contact form: {name} ({email}) - {subject}: {message}")
+        
+        # Success message or redirect
+        return render(request, 'contact.html', {'success': True})
+    
     return render(request, 'contact.html')
