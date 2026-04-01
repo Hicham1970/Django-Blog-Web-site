@@ -90,3 +90,7 @@ def add_comment(request, slug):
 
         return redirect('blog_details', slug=post.blog_slug)
     return redirect('blog_details')
+
+
+def contact(request):
+    return render(request, 'contact.html')

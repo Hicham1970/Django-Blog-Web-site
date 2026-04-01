@@ -135,13 +135,13 @@
         <nav>
             <ul class="vertical-menu">
                 <li class="active">
-                    <a href="index.html">Home</a>
+                    <a href="{% url 'home' %}">Home</a>
                     <ul class="submenu">
-                        <li><a href="index.html">Magazine</a></li>
-                        <li><a href="personal.html">Personal</a></li>
-                        <li><a href="personal-alt.html">Personal Alt</a></li>
-                        <li><a href="minimal.html">Minimal</a></li>
-                        <li><a href="classic.html">Classic</a></li>
+                        <li><a href="{% url 'home' %}">Magazine</a></li>
+                        <li><a href="#">Personal</a></li>
+                        <li><a href="#">Personal Alt</a></li>
+                        <li><a href="#">Minimal</a></li>
+                        <li><a href="#">Classic</a></li>
                     </ul>
                 </li>
                 <li><a href="category.html">Lifestyle</a></li>
@@ -153,10 +153,10 @@
                         <li><a href="blog-single.html">Blog Single</a></li>
                         <li><a href="blog-single-alt.html">Blog Single Alt</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                 </li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
         </nav>
 
