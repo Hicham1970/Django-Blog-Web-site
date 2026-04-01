@@ -6,10 +6,6 @@
   "version": 2,
   "routes": [
     {
-      "src": "/static/(.*)",
-      "dest": "Blog/staticfiles/$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "Blog/api/index.py"
     }

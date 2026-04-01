@@ -9,8 +9,9 @@ cloudinary.config(
     api_secret="mukXbTW"
 )
 
-# Use Cloudinary for file storage in production
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# For production: keep local media storage for existing images
+# New uploads will be handled through normal Django file upload mechanism
+# DEFAULT_FILE_STORAGE is intentionally NOT set to allow local file serving
 
 DEBUG = False
 
@@ -37,7 +38,22 @@ INSTALLED_APPS = [
     'Home',
 ]
 
+# SECURITY: Middleware for Vercel production
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add WhiteNoise for static/media files
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
 ALLOWED_HOSTS = ['*']
+
+# WhiteNoise Configuration
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGGING = {
     'version': 1,
