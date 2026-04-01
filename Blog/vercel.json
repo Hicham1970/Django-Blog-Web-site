@@ -1,1 +1,21 @@
-{"version":2,"routes":[{"src":"/static/(.*)","dest":"/static/$1"},{"src":"/media/(.*)","dest":"/media/$1"},{"src":"/(.*)","dest":"api/index.py"}]}
+{
+  "buildCommand": "cd Blog && pip install -r requirements.txt && python manage.py collectstatic --noinput --clear",
+  "framework": "django",
+  "installCommand": "cd Blog && pip install -r requirements.txt",
+  "outputDirectory": "Blog",
+  "version": 2,
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "Blog/staticfiles/$1"
+    },
+    {
+      "src": "/media/(.*)",
+      "dest": "Blog/media/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "Blog/api/index.py"
+    }
+  ]
+}

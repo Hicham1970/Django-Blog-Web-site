@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=b34wmsqu*dk%7b1*zpb&e9p&8#z!e$l=gkfmndbv=&4*&=1!w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -27,9 +27,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Home',
-    'ckeditor',
-    'dashboard',
 ]
+if DEBUG:
+    INSTALLED_APPS += ['ckeditor', 'dashboard']
+if not DEBUG:
+    INSTALLED_APPS += ['cloudinary_storage']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -110,13 +112,29 @@ STATIC_URL = 'static/'
 
 # Add this configuration to tell Django where to find your project-level static files
 STATICFILES_DIRS = [
-    BASE_DIR.parent / "static",
+    BASE_DIR / 'static',
 ]
 
 # Static root for collectstatic
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # media files settings uploaded by users like images
+if not DEBUG:
+    import cloudinary
+    import cloudinary.uploader
+    from cloudinary_storage.storage import MediaCloudinaryStorage
+    cloudinary.config(
+        cloud_name='doh12ravy',
+        api_key='799647489875273',
+        api_secret='mukXbTW'
+    )
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': 'doh12ravy',
+        'API_KEY': '799647489875273',
+        'API_SECRET': 'mukXbTW'
+    }
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 

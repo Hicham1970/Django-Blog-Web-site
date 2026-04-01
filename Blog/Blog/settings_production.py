@@ -1,5 +1,17 @@
 from .settings import *
 
+import cloudinary
+
+# Cloudinary configuration for production media storage
+cloudinary.config(
+    cloud_name="doh12ravy",
+    api_key="799647489875273",
+    api_secret="mukXbTW"
+)
+
+# Use Cloudinary for file storage in production
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 DEBUG = False
 
 # Disable DB writes for readonly

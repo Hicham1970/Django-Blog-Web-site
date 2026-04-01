@@ -35,7 +35,8 @@ class Blog(models.Model):
 
     title = models.CharField(max_length=200, verbose_name="Titre")
     image = models.ImageField(
-        upload_to='images/', null=True, blank=True, verbose_name="Image")
+        upload_to='images/', null=True, blank=True, 
+        verbose_name="Image")
     content = RichTextField()
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="blog_posts", verbose_name="Auteur")
@@ -86,3 +87,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.name} on {self.post.title}"
+

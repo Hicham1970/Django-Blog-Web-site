@@ -7,8 +7,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Home.urls')),
     path('dashboard/', include('dashboard.urls')),
-
-
 ]
 
-# Static/media serving handled by vercel.json
+from django.conf import settings
+from django.conf.urls.static import static
+
+# Media and static serving for local development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Static/media serving handled by vercel.json in production
