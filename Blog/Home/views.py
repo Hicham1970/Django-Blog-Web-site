@@ -43,8 +43,8 @@ def blog_details(request, slug):
         post=post, parent__isnull=True).order_by('-created_at')
 
     # Increment views
-    post.views += 1
-    post.save()
+    # post.views += 1  # Disabled for Vercel readonly DB
+    # post.save()
 
     context = {
         # 'posts': posts,
