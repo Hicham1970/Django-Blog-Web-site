@@ -143,7 +143,8 @@
 					</div>
 					<div class="details">
 						<h4 class="name"><a href="#">{{post.author.first_name}} {{post.author.last_name}}</a></h4>
-						<p>Hello, I’m a content writer who is fascinated by content fashion, technology, culture and lifestyle.
+						<p>Hello, I’m a content writer who is fascinated by content fashion, technology, culture and
+							lifestyle.
 							I help clients bring the right content to the right people.</p>
 						<!-- social icons -->
 						<ul class="social-icons list-unstyled list-inline mb-0">
@@ -197,10 +198,10 @@
 				<!-- comment form -->
 				<div class="comment-form rounded bordered padding-30">
 
-					<form id="comment-form" class="comment-form" 
-					method="post" action="{% url 'add_comment' post.blog_slug %}">
+					<form id="comment-form" class="comment-form" method="post"
+						action="{% url 'add_comment' post.blog_slug %}">
 						{% csrf_token %}
-						<!-- alert messages -->	
+						<!-- alert messages -->
 
 						<div class="messages"></div>
 
@@ -341,12 +342,10 @@
 						</div>
 						<div class="widget-content">
 							<ul class="list">
-								<li><a href="#">Lifestyle</a><span>(5)</span></li>
-								<li><a href="#">Inspiration</a><span>(2)</span></li>
-								<li><a href="#">Fashion</a><span>(4)</span></li>
-								<li><a href="#">Politic</a><span>(1)</span></li>
-								<li><a href="#">Trending</a><span>(7)</span></li>
-								<li><a href="#">Culture</a><span>(3)</span></li>
+								{% for cat in cat %}
+								<li><a href="{% url 'category' cat.slug %}">{{ cat.name }}</a><span>({{
+										cat.blogpost_set.count }})</span></li>
+								{% endfor %}
 							</ul>
 						</div>
 
