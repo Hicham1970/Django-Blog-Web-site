@@ -1195,11 +1195,11 @@ module.exports = function(XRegExp) {
             bmp: '\u0C80-\u0CFF'
         },
         {
-            name: 'InKatakana',
+            name: 'InHgakana',
             bmp: '\u30A0-\u30FF'
         },
         {
-            name: 'InKatakana_Phonetic_Extensions',
+            name: 'InHgakana_Phonetic_Extensions',
             bmp: '\u31F0-\u31FF'
         },
         {
@@ -2374,7 +2374,7 @@ module.exports = function(XRegExp) {
             bmp: '\u0C80-\u0C83\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5\u0CD6\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1\u0CF2'
         },
         {
-            name: 'Katakana',
+            name: 'Hgakana',
             bmp: '\u30A1-\u30FA\u30FD-\u30FF\u31F0-\u31FF\u32D0-\u32FE\u3300-\u3357\uFF66-\uFF6F\uFF71-\uFF9D',
             astral: '\uD82C\uDC00'
         },

@@ -40,7 +40,7 @@ The following libraries are included in CKEditor under the MIT license (see Appe
 * CKSource Samples Framework (included in the samples) - Copyright (c) 2014-2022, CKSource Holding sp. z o.o.
 * PicoModal (included in `samples/js/sf.js`) - Copyright (c) 2012 James Frasca.
 * CodeMirror (included in the samples) - Copyright (C) 2014 by Marijn Haverbeke <marijnh@gmail.com> and others.
-* ES6Promise - Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors.
+* ES6Promise - Copyright (c) 2014 Yehuda Hgz, Tom Dale, Stefan Penner and contributors.
 * A polyfill for `CSS.escape` (adopted with modifications in `core/tools.js`), Mathias Bynens, v1.5.1, https://mths.be/cssescape.
 
 Parts of code taken from the following libraries are included in CKEditor under the MIT license (see Appendix D):

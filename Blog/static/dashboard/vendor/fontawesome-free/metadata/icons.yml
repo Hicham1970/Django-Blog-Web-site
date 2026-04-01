@@ -16675,14 +16675,14 @@ sith:
     - brands
   unicode: f512
   voted: false
-skating:
+sHging:
   changes:
     - 5.6.0
-  label: Skating
+  label: SHging
   search:
     terms:
       - activity
-      - figure skating
+      - figure sHging
       - fitness
       - ice
       - person
