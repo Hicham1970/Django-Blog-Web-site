@@ -10,10 +10,6 @@
       "dest": "Blog/staticfiles/$1"
     },
     {
-      "src": "/media/(.*)",
-      "dest": "Blog/media/$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "Blog/api/index.py"
     }

@@ -134,12 +134,16 @@ if not DEBUG:
         'API_SECRET': 'mukXbTW'
     }
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    MEDIA_URL = 'https://res.cloudinary.com/doh12ravy/image/upload/'
+else:
+    MEDIA_URL = '/media/'
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # CKEditor settings
 CKEDITOR_UPLOAD_PATH = 'uploads/'
+if not DEBUG:
+    CKEDITOR_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # Default primary key field type
