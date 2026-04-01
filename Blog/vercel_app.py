@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR))
 
 # Set the Django settings module
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Blog.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Blog.settings_production')
 
 # Setup Django
 django.setup()
