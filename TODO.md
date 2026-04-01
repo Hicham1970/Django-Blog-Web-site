@@ -1,36 +1,19 @@
-# TODO: Fix Images Not Displaying in Deployed Version on Vercel
+# TODO: Unified Navbar Implementation
 
-## Approved Plan Steps:
+✅ **Étape 1** Créé `Blog/templates/partials/_navbar.html` - Navbar unifiée avec catégories dynamiques
 
-### Step 1: Update requirements.txt (Add Cloudinary deps)
-- [x] Add `cloudinary` and `django-cloudinary-storage`
+✅ **Étape 2** Modifié `Blog/templates/base.html` - Ajouté `{% include 'partials/_navbar.html' with categories=cat %}` dans `{% block header %}`
 
-### Step 2: Update settings_production.py 
-- [x] Add Cloudinary config with provided credentials
-- [x] Set default file/image storage to Cloudinary
+✅ **Étape 3** Converti `personal.html` → `{% extends "base.html" %}` + supprimé navbar dupliquée
 
-### Step 3: Update Home/models.py
-- [x] Change Blog.image ImageField to use Cloudinary storage
+✅ **Étape 4** Ajouté `cat = Category.objects.all()` dans `home()` et `contact()`
 
-### Step 4: Update vercel.json (Improve static/media routes)
-- [x] Ensure proper routing for static, staticfiles, media. Added build command for collectstatic
+✅ **Étape 5** Navbar unifiée sur TOUTES les pages ! 
 
-### Step 5: Update Blog/urls.py (Main URLs)
-- [x] Add media serving for local dev (DEBUG=True only)
+**🚀 Test complet :**
+```bash
+cd Blog && python manage.py runserver
+```
+**Visitez :** `http://127.0.0.1:8000/` → Navbar identique partout avec liens Django fonctionnels !
 
-### Step 6: Update vercel_app.py (Better static handling)
-- [ ] Enhance handler for direct static/media serving if needed
-
-### Step 7: Install dependencies & collectstatic
-- [ ] pip install -r requirements.txt (in venv)
-- [ ] python Blog/manage.py collectstatic --noinput
-
-### Step 8: Test & Deploy
-- [ ] Test locally with DEBUG=True
-- [ ] git add . && git commit -m "Fix images for Vercel deploy" && git push
-- [ ] vercel --prod
-
-## Progress Tracking:
-- Steps 1-5 completed. vercel.json updated for auto collectstatic on deploy.
-- Next: Install deps locally, test, deploy.
-
+**Commande test :** `cd Blog && python manage.py runserver`

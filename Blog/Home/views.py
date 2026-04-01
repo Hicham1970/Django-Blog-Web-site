@@ -14,7 +14,7 @@ def home(request):
         '-id')[0:5]  # Fetch 5 recent posts
     popular = Blog.objects.filter(section='Popular').order_by(
         '-id')[0:5]  # Fetch 5 popular posts
-    category = Category.objects.all()  # Fetch all categories
+    cat = Category.objects.all()  # Fetch all categories
     trending = Blog.objects.filter(section='Trending').order_by(
         '-id')[:4]  # Fetch 5 trending posts
     inspiration = Blog.objects.filter(section='Inspiration').order_by(
@@ -25,10 +25,9 @@ def home(request):
         'main_post': main_post,
         'recent': recent,
         'popular': popular,
-        'category': category,
+        'cat': cat,
         'trending': trending,
         'inspiration': inspiration,
-
     }
 
     return render(request, 'index.html', context)
@@ -93,6 +92,7 @@ def add_comment(request, slug):
 
 
 def contact(request):
+    cat = Category.objects.all()
     if request.method == 'POST':
         name = request.POST.get('InputName', '')
         email = request.POST.get('InputEmail', '')
@@ -104,6 +104,6 @@ def contact(request):
         print(f"Contact form: {name} ({email}) - {subject}: {message}")
         
         # Success message or redirect
-        return render(request, 'contact.html', {'success': True})
+        return render(request, 'contact.html', {'success': True, 'cat': cat})
     
-    return render(request, 'contact.html')
+    return render(request, 'contact.html', {'cat': cat})
