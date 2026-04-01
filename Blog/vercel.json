@@ -1,7 +1,7 @@
 {
-  "buildCommand": "cd Blog && pip install -r requirements.txt && python manage.py collectstatic --noinput --clear",
+  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --noinput --clear",
   "framework": "django",
-  "installCommand": "cd Blog && pip install -r requirements.txt",
+  "installCommand": "pip install -r requirements.txt",
   "outputDirectory": "Blog",
   "version": 2,
   "routes": [

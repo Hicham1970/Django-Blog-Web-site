@@ -4,9 +4,6 @@ django-autoslug==1.9.9
 django-chartjs==2.3.0
 django-ckeditor==6.5.1
 django-filter==23.3
-
-
-django-utils==0.0.2
 pillow==11.3.0
 sqlparse==0.4.4
 tzdata==2022.5
