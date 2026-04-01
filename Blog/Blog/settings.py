@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=b34wmsqu*dk%7b1*zpb&e9p&8#z!e$l=gkfmndbv=&4*&=1!w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -110,7 +110,7 @@ STATIC_URL = 'static/'
 
 # Add this configuration to tell Django where to find your project-level static files
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR.parent / "static",
 ]
 
 # Static root for collectstatic
@@ -118,7 +118,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # media files settings uploaded by users like images
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # CKEditor settings
 CKEDITOR_UPLOAD_PATH = 'uploads/'
