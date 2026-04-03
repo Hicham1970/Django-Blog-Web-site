@@ -16,16 +16,25 @@ cloudinary.config(
 DEBUG = False
 
 # Disable DB writes for readonly
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        'OPTIONS': {
-            'timeout': 20,
-        },
-        'DISABLE_SERVER_SIDE_CURSOR': True,
+import dj_database_url
+import os
+
+# Use DATABASE_URL env var if set (Vercel), else Neon direct
+DATABASE_URL = os.getenv('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'neondb',
+            'USER': 'neondb_owner',
+            'PASSWORD': 'npg_i6Xor2cYEhLJ',
+            'HOST': 'ep-cool-king-anypd2cp.c-6.us-east-1.aws.neon.tech',
+            'PORT': '5432',
+            'OPTIONS': {'sslmode': 'require'},
+        }
     }
-}
 
 # Simplified apps - removed ckeditor/dashboard
 INSTALLED_APPS = [

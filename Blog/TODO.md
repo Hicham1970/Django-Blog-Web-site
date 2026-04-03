@@ -1,13 +1,17 @@
-# TODO Steps to Fix Media/Images on Vercel
+# PostgreSQL Migration TODO
 
-## Plan Breakdown:
-1. ✅ **Update vercel.json**: Added headers/routes for /media/* and updated build to copy media/
-2. ✅ **Update build command**: Copies media to staticfiles/media during collectstatic
-3. ⬜ **Redeploy**: Run `vercel --prod` (production deploy) or `git push` if linked to repo
-4. ⬜ **Test**: 
-   - Visit deployed site
-   - Check blog posts images load
-   - Direct: https://your-site.vercel.app/media/[filename].jpg (replace with actual image)
-5. ⬜ **Verify**: If works, mark complete. If not, share Vercel build/deploy logs.
+## Previous: Images Fixed ✅
 
-**Next step:** Execute `vercel --prod` in terminal and test the deployed site.
+## Postgres Migration Plan:
+1. ✅ **Requirements**: Added psycopg[binary]==3.2.1
+2. ✅ **Settings**: Updated settings_production.py with Neon: postgresql://neondb_owner:npg_i6Xor2cYEhLJ@ep-cool-king-anypd2cp.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require
+3. ⬜ **Local setup**: `cd Blog && python manage.py makemigrations && python manage.py migrate`
+4. ⬜ **Vercel env**: 
+   - Go to https://vercel.com/hicham-garoums-projects/djangobloghg/settings/env-vars
+   - Add: DATABASE_URL = `postgresql://neondb_owner:npg_i6Xor2cYEhLJ@ep-cool-king-anypd2cp.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require`
+5. ⬜ **Update settings**: Parse DATABASE_URL if set
+6. ⬜ **Deploy & test**: `vercel --prod`, test new comments
+
+**Next:** Run local migrations, add DATABASE_URL to Vercel, redeploy.
+
+**Next:** Run migrations locally, then add `DATABASE_URL` to Vercel env vars.
