@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("notification","da",{closed:"NotefiHgion lukket."});
