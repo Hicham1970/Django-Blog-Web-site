@@ -19,15 +19,18 @@ def home(request):
         '-id')[:4]  # Fetch 5 trending posts
     inspiration = Blog.objects.filter(section='Inspiration').order_by(
         '-id')[:4]  # Fetch 5 inspiration posts
+    editors_pick = Blog.objects.filter(status='1').order_by('-created_at')[:5]
 
     context = {
         'post': post,
         'main_post': main_post,
         'recent': recent,
         'popular': popular,
+        'category': cat,
         'cat': cat,
         'trending': trending,
         'inspiration': inspiration,
+        'editors_pick': editors_pick,
     }
 
     return render(request, 'index.html', context)
@@ -36,6 +39,7 @@ def home(request):
 def blog_details(request, slug):
     # posts = Blog.objects.order_by('-id') # Fetch all blog posts ordered by ID in descending order
     category = Category.objects.all()  # Fetch all categories
+    cat = Category.objects.all()
     # Fetch the specific blog post by slug or return 404 if not found
     post = get_object_or_404(Blog, blog_slug=slug)
     comments = Comment.objects.filter(

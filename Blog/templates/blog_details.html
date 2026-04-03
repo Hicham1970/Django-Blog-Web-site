@@ -260,7 +260,9 @@
 					<div class="widget rounded">
 						<div class="widget-about data-bg-image text-center"
 							data-bg-image="{% static 'images/map-bg.png' %}">
-							<img src="{% static 'images/logo.svg' %}" alt="logo" class="mb-4" />
+							<img src="{% static 'images/ghbloglogo.svg' %}" alt="logo" class="mb-4"
+								style="width: 150px; height: auto;" />
+
 							<p class="mb-4">Hello, We’re content writer who is fascinated by content fashion, celebrity
 								and lifestyle. We helps clients bring the right content to the right people.</p>
 							<ul class="social-icons list-unstyled list-inline mb-0">
@@ -345,12 +347,15 @@
 							<img src="{% static 'images/wave.svg' %}" class="wave" alt="wave" />
 						</div>
 						<div class="widget-content">
+
 							<ul class="list">
 								{% for cat in cat %}
 								<li><a href="{% url 'category' cat.slug %}">{{ cat.name }}</a><span>({{
 										cat.blogpost_set.count }})</span></li>
+
 								{% endfor %}
 							</ul>
+
 						</div>
 
 					</div>

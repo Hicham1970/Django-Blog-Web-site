@@ -1,19 +1,9 @@
-# TODO: Unified Navbar Implementation
+# Task: Update Editor's Pick section with real/dynamic posts - COMPLETE
 
-✅ **Étape 1** Créé `Blog/templates/partials/_navbar.html` - Navbar unifiée avec catégories dynamiques
+## Steps:
+1. [x] Update Blog/Home/views.py: Add `editors_pick = Blog.objects.filter(status='1').order_by('-created_at')[:5]` to home context.
+2. [x] Update Blog/templates/index.html: Replace hardcoded Editor's Pick row (from `<div class="row gy-5">` to closing `</div>`) with dynamic loop over editors_pick.
+3. [x] Test: Editor's Pick now uses 5 most recent published posts. First post (most recent) uses its image or fallback; links to blog_details. Run `python manage.py runserver` to verify at http://127.0.0.1:8000/. If no published posts, section empty - create via admin.
 
-✅ **Étape 2** Modifié `Blog/templates/base.html` - Ajouté `{% include 'partials/_navbar.html' with categories=cat %}` dans `{% block header %}`
+All steps complete.
 
-✅ **Étape 3** Converti `personal.html` → `{% extends "base.html" %}` + supprimé navbar dupliquée
-
-✅ **Étape 4** Ajouté `cat = Category.objects.all()` dans `home()` et `contact()`
-
-✅ **Étape 5** Navbar unifiée sur TOUTES les pages ! 
-
-**🚀 Test complet :**
-```bash
-cd Blog && python manage.py runserver
-```
-**Visitez :** `http://127.0.0.1:8000/` → Navbar identique partout avec liens Django fonctionnels !
-
-**Commande test :** `cd Blog && python manage.py runserver`
