@@ -1,1 +1,13 @@
-- [x] Step 1: Create TODO.md (done)&#10;- [x] Step 2: Edit Blog/templates/index.html - Replace static navbar links "index.html" with Django {% url &#39;home&#39; %} for logo and Home dropdown.
+# TODO Steps to Fix Media/Images on Vercel
+
+## Plan Breakdown:
+1. ✅ **Update vercel.json**: Added headers/routes for /media/* and updated build to copy media/
+2. ✅ **Update build command**: Copies media to staticfiles/media during collectstatic
+3. ⬜ **Redeploy**: Run `vercel --prod` (production deploy) or `git push` if linked to repo
+4. ⬜ **Test**: 
+   - Visit deployed site
+   - Check blog posts images load
+   - Direct: https://your-site.vercel.app/media/[filename].jpg (replace with actual image)
+5. ⬜ **Verify**: If works, mark complete. If not, share Vercel build/deploy logs.
+
+**Next step:** Execute `vercel --prod` in terminal and test the deployed site.
