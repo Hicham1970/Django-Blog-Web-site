@@ -37,7 +37,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Bootstrap
 - Font Awesome
 
-CLOUDINARY_API_KEY=799647489875273
-API_SECRET=mukXbTW
-CLOUD_NAME=doh12ravy
-

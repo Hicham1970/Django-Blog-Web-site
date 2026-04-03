@@ -1,0 +1,1 @@
+- [x] Step 1: Create TODO.md (done)&#10;- [x] Step 2: Edit Blog/templates/index.html - Replace static navbar links "index.html" with Django {% url &#39;home&#39; %} for logo and Home dropdown.
