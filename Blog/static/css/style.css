@@ -80,7 +80,7 @@ img {
 }
 
 .book {
-  --color: #fe4f70;
+  --color: #e69587;
   --duration: 6.8s;
   width: 32px;
   height: 12px;
@@ -532,7 +532,7 @@ h6 {
 }
 
 a {
-  color: #fe4f70;
+  color: #e69587;
   outline: 0;
   text-decoration: none;
   -webkit-transition: all 0.2s ease-in-out;
@@ -554,7 +554,7 @@ blockquote {
   padding: 20px 20px;
   margin: 0 0 20px;
   background: #fff8fa;
-  border-left: solid 3px #fe4f70;
+  border-left: solid 3px #e69587;
   border-radius: 5px;
 }
 
@@ -694,7 +694,7 @@ body.down .header-classic .header-bottom.clone {
   margin: 0px 0 5px;
 }
 .text-logo .dot {
-  color: #fe4f70;
+  color: #e69587;
   font-size: 44px;
   margin-left: 5px;
 }
@@ -989,7 +989,7 @@ body.down .header-classic .header-bottom.clone {
   padding: 10px;
   line-height: 1;
   cursor: pointer;
-  color: #fe4f70;
+  color: #e69587;
   position: absolute;
   top: 0px;
   right: 0;

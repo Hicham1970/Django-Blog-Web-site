@@ -24,10 +24,10 @@
 
 			<div class="col-md-4 col-sm-12 col-xs-12 text-center">
 				<!-- site logo -->
-				<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/other/avatar-lg.png' %}"
-						alt="logo" /></a>
+				<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/other/moi.jpg' %}"
+						alt="logo" style="border-radius: 50%; width: 60px; height: 60px; object-fit: cover;" /></a>
 				<a href="{% url 'home' %}" class="d-block text-logo">HGBlog<span class="dot">.</span></a>
-				<span class="slogan d-block">Professional Writer & Personal Blogger</span>
+				<span class="slogan d-block">Professional Marine Surveyor & Personal Blogger</span>
 			</div>
 
 			<div class="col-md-4 col-sm-12 col-xs-12">
@@ -121,15 +121,17 @@
 								</span>
 								<a href="{% url 'blog_details' post.blog_slug %}">
 									<div class="inner">
-										<img src="{{ post.image.url }}" alt="{{ post.title }}" />
+										<img src="{{ post.image.url }}" alt="{{ post.title }}"
+											style="width: 100%; height: 200px; object-fit: cover;" />
 									</div>
 								</a>
 							</div>
 							<div class="details">
 								<ul class="meta list-inline mb-0">
 									<li class="list-inline-item"><a href="#"><img
-												src="{% static 'images/other/author-sm.png' %}" class="author"
-												alt="author" />{{ post.author.first_name }}</a></li>
+												src="{% static 'images/other/moi.jpg' %}" class="author" alt="author"
+												style="border-radius: 50%; width: 40px; height: 40px; object-fit: cover;" />{{
+											post.author.first_name }}
 									<li class="list-inline-item">{{ post.created_at|date:"d M Y" }}</li>
 								</ul>
 								<h5 class="post-title mb-3 mt-3"><a
