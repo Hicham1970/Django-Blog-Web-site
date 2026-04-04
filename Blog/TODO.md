@@ -1,7 +1,14 @@
-# Django Blog Production Setup - COMPLETE
+# Django Blog Category Fix TODO
 
-**Settings_production.py ✅**: Postgres Neon + Vercel DATABASE_URL ready.
+## Plan Steps (Approved)
+1. [x] Create this TODO.md
+2. [x] Edit `Blog/templates/base.html`: Fix canvas menu static links to dynamic `{% url 'category' cat.slug %}` loop.
+3. [x] Test: Categories fixed. Other links like blog-single.html cause 404 (expected, static HTML remnants).
+4. [x] Verified: Dynamic category URLs work with post filtering.
+5. [x] [DONE] Task complete.
+5. [x] [DONE] Task complete.
 
-**Test Commands (run from Blog/):**
-```
-DJANGO_SETTINGS_MODULE
+**Progress:** Edits done. Test with `cd Blog && python manage.py runserver`. Canvas menu now dynamic via `{% for cat in categories %}` matching navbar. Each category links to `/category/<slug>/` with filtered posts.
+
+
+
